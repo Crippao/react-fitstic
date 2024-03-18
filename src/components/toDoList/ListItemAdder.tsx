@@ -9,7 +9,6 @@ export function ListItemAdder(props: {
 
     return <>
         <input type="text" value={newItem} onChange={(ev) => {
-            //console.log("Nuovo item digitato: ", ev.target.value);
             setNewItem(ev.target.value);
         }} />
         <Button type="default" onClick={() => {
