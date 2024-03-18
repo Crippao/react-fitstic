@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
 import styles from './App.module.scss';
 import logo from "./assets/logo512.png";
 import Display from './components/Display';
@@ -7,13 +7,42 @@ import { TextComponent } from './components/TextComponent';
 import CounterObject from './components/CounterObject';
 import { MyCustomInput } from './components/MyCustomInput';
 import { PersonInput } from './components/PersonInput';
+import { IncrementDisplayComponent } from './components/IncrementDisplayComponent';
+import { ToDoList } from './components/toDoList/ToDoList';
+import { ListItemAdder } from './components/toDoList/ListItemAdder';
+import { Button } from 'antd';
 
+// function calcolo(n:number) {
+//   console.log("calcolo con: ", n)
+//   return n*2;
+// }
 
 export default function App() { 
 
+  // const [textState, setTextState] = useState("");
+  // const [initialValue, setInitialValue] = useState(10);
+
+  //si possono memoizzare solo funzioni pure, cioè che a parità di input restituiscno lo stesso output
+  //useMemo DEVE avere un return con il valore da memoizzare
+  // const risultatoCalcolo = useMemo(()=>{
+  //   return calcolo(initialValue);
+  // },[initialValue])  
+  
+  //se imposto un array vuoto allora l'effetto verrà applicato solo in fase di primo montaggio del componente
+  // useEffect(()=>console.log("useEffect on mount"), [])
+
+  // console.log("Rendering App")
+
   return <>
-    <div>App</div>
-    {/* <Counter /> */}
+    {/* <div>App</div> */}
+    {/* {initialValue !== 20 && <IncrementDisplayComponent/>} */}
+    {/* se modifico una prop il componente viene rerenderizzato */}
+    {/* se modifico la key il componente viene reinizializzato, quindi tutti gli stati tornano al valora iniziale */}
+    {/* <Counter initialValue={initialValue}/> */}
+    {/* <Counter key={initialValue}/> */}
+    {/* <button onClick={() => setInitialValue(20)}>Imposta a 20</button>
+    <div>value: {initialValue}</div>
+    <div>Risultato calcolo: {risultatoCalcolo}</div> */}
     {/* <CounterObject /> */}
     {/* <TextComponent/> */}
     {/* <div>
@@ -22,20 +51,12 @@ export default function App() {
         setTextState(textState);
         }}/>
     </div> */}
-    <PersonInput onSave={(person) => console.log(person)}></PersonInput>
+    {/* <PersonInput onSave={(person) => console.log(person)}></PersonInput> */}
+
+    <ToDoList/>
+    {/* <Button type="primary">Button</Button> */}
   </>
 };
-
-// export default function App() {
-//   return <>
-//     {/* <MyComponent /> */}
-//     <CyclicRenderingComponent />
-//     <div className={styles.title}>
-//       {/* <img src={logo} alt="logo" /> */}
-//       <div>Fitstic React 2024</div>
-//     </div>
-//   </>;
-// }
 
 const sum = (n1: number, n2: number) => {
   return n1 + n2

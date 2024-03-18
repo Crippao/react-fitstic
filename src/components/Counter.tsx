@@ -1,11 +1,23 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Display from "./Display";
 
-export default function Counter() {
+export default function Counter(props: {
+    readonly initialValue? : number;
+}) {
     // Definizione di uno stato, di tipo number, 
     // inizializzato a 0
-    const [contatore, setContatore] = useState(0);
+    const {initialValue = 0} = props;
+
+    const [contatore, setContatore] = useState(initialValue);
     console.log("Counter()", contatore);
+
+    //primo parametro callback per impostare il comportamento
+    //secondo paramentro lista di dipendenze di cui si ascolta il cambiamento (opzionale),     
+    useEffect(()=>{
+        console.log("useEffect() --> initialValue:", initialValue);
+        setContatore(initialValue);
+        return ()=> console.log("return di useEffect", initialValue)
+    }, [initialValue])
 
     return <>
         <Display n={contatore} color="blue" />
@@ -17,7 +29,7 @@ export default function Counter() {
             //setContatore(partial => partial + 1);
 
             setContatore(contatore + 1);
-            console.log("click!, contatore:", contatore);
+            //console.log("click!, contatore:", contatore);
         }}>premi</button>
         {contatore > 5 && <div>attenzione! maggiore di 5</div>}
     </>
